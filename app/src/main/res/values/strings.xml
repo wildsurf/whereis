@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Whereis</string>
     <string name="title_activity_maps">Map</string>
+    <string name="google_login_prompt">Login with Google</string>
 </resources>
