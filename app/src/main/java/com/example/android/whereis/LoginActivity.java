@@ -1,5 +1,6 @@
 package com.example.android.whereis;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,16 +9,12 @@ import android.view.View;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int RC_SIGN_IN = 23942;
-
-    GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +35,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void signIn() {
         Log.v(LoginActivity.class.getSimpleName(), "signIn");
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        Intent signInIntent = GoogleSigninUtil.mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void initGoogleAuth() {
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        GoogleSigninUtil.initGoogleSigninClient(this);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         this.handleSignInResult(account);
     }
@@ -73,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Log.v(LoginActivity.class.getSimpleName(), account.getDisplayName());
             UserInfoUtil.storeUserInfo(this, account);
             Intent intent = new Intent(this, MapsActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         }
     }
