@@ -1,6 +1,5 @@
 package com.example.android.whereis;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,12 +34,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     public void signIn() {
         Log.v(LoginActivity.class.getSimpleName(), "signIn");
-        Intent signInIntent = GoogleSigninUtil.mGoogleSignInClient.getSignInIntent();
+        Intent signInIntent = GoogleServicesUtil.mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
     private void initGoogleAuth() {
-        GoogleSigninUtil.initGoogleSigninClient(this);
+        GoogleServicesUtil.initGoogleSigninClient(this);
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         this.handleSignInResult(account);
     }
