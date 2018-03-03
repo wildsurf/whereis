@@ -204,11 +204,14 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void updateMarkers(String userId) {
         mMap.clear();
         List<Location> locations = this.mUserLocations.get(userId);
+        if (locations.size() == 0) {
+            return;
+        }
         for (int i = 0; i < locations.size() - 1; i++) {
             Location location = locations.get(i);
             mMap.addCircle(new CircleOptions()
                     .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .radius(5)
+                    .radius(2)
                     .strokeColor(getResources().getColor(R.color.colorPrimary))
                     .fillColor(getResources().getColor(R.color.colorPrimary)));
         }
