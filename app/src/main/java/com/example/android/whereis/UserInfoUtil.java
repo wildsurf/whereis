@@ -23,6 +23,7 @@ public final class UserInfoUtil {
     private static final String USER_DISPLAY_NAME = "user_display_name";
     private static final String USER_PHOTO_URL = "user_photo_url";
     private static final String USER_EMAIL = "user_email";
+    private static final String USER_ID = "user_id";
 
     static void storeUserInfo(Context context, GoogleSignInAccount account) {
         int mode = Activity.MODE_PRIVATE;
@@ -32,6 +33,7 @@ public final class UserInfoUtil {
 
         editor.putString(USER_DISPLAY_NAME, account.getDisplayName());
         editor.putString(USER_EMAIL, account.getEmail());
+        editor.putString(USER_ID, account.getId());
         if (account.getPhotoUrl() != null) {
             editor.putString(USER_PHOTO_URL, account.getPhotoUrl().toString());
         }
@@ -58,5 +60,12 @@ public final class UserInfoUtil {
 
         SharedPreferences mySharedPreferences = context.getSharedPreferences(USER_PREFERENCES, mode);
         return mySharedPreferences.getString(USER_EMAIL, "");
+    }
+
+    public static String getUserId(Context context) {
+        int mode = Activity.MODE_PRIVATE;
+
+        SharedPreferences mySharedPreferences = context.getSharedPreferences(USER_PREFERENCES, mode);
+        return mySharedPreferences.getString(USER_ID, "");
     }
 }

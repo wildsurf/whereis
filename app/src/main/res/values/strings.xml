@@ -3,4 +3,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="google_login_prompt">Login with Google</string>
     <string name="logout">Logout</string>
+    <string name="share_location">Share location</string>
 </resources>

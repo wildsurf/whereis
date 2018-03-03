@@ -4,6 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
+    <Switch
+        android:id="@+id/is_share_location"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="@string/share_location"
+        android:gravity="start"
+        android:padding="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <fragment
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
