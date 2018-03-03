@@ -33,9 +33,10 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -207,14 +208,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         if (locations.size() == 0) {
             return;
         }
-        for (int i = 0; i < locations.size() - 1; i++) {
-            Location location = locations.get(i);
-            mMap.addCircle(new CircleOptions()
-                    .center(new LatLng(location.getLatitude(), location.getLongitude()))
-                    .radius(2)
-                    .strokeColor(getResources().getColor(R.color.colorPrimary))
-                    .fillColor(getResources().getColor(R.color.colorPrimary)));
+        List<LatLng> latlngs = new ArrayList<>();
+        for (int i=0; i<locations.size(); i++) {
+            Location loc = locations.get(i);
+            latlngs.add(new LatLng(loc.getLatitude(), loc.getLongitude()));
         }
+        Polyline line = mMap.addPolyline((new PolylineOptions())
+                .color(getResources().getColor(R.color.colorPrimaryDark))
+                .geodesic(true));
+        line.setPoints(latlngs);
         Bitmap userProfileImage = mUserProfileImages.get(userId);
         if (userProfileImage != null) {
             addMarker(userProfileImage, locations.get(locations.size() - 1));
