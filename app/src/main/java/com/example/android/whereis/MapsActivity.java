@@ -101,7 +101,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             + " - "
                             + location.getLongitude());
                     List<Location> userLocations = mUserLocations.get(userId);
-                    if (userLocations == null) {
+                    if (userLocations == null || userLocations.size() == 0) {
                         userLocations = new ArrayList<>();
                         userLocations.add(location);
                     } else {
@@ -138,7 +138,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMinZoomPreference(17f);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(48.137154, 11.576124), 17f));
     }
 
     @Override
@@ -252,22 +252,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }
             }
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mRequestingLocationUpdates) {
-            startLocationUpdates();
-        }
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if (mRequestingLocationUpdates) {
-            stopLocationUpdates();
-        }
     }
 
     @SuppressLint("MissingPermission")
